@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giyanti Coffee Roastery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --espresso:  #1a0a00;
+      --roast:     #3b1a09;
+      --caramel:   #a0522d;
+      --latte:     #c8956c;
+      --cream:     #f5ede2;
+      --foam:      #fdf6ee;
+      --gold:      #d4a04a;
+      --text-dark: #1a0a00;
+      --text-mid:  #5c3d2e;
+      --text-light:#fff8f2;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--foam);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--espresso);
+      padding: 1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .logo-sup {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--cream);
+      font-style: italic;
+    }
+
+    .logo-accent {
+      color: var(--gold);
+    }
+
+    .header-tagline {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--latte);
+      text-transform: uppercase;
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .header-tagline { display: block; }
+    }
+
+    nav {
+      background-color: var(--roast);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 1px solid #4d2810;
+    }
+
+    nav a {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      padding: 0.85rem 1.2rem;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.25s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    nav a:hover::after {
+      width: 70%;
+    }
+
+    nav .nav-divider {
+      color: #5c3d2e;
+      padding: 0 0.1rem;
+      user-select: none;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--espresso) 0%, var(--roast) 60%, #5a2d10 100%);
+      padding: 6rem 2.5rem;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 80%, rgba(212,160,74,0.12) 0%, transparent 50%),
+       radial-gradient(circle at 80% 20%, rgba(200,149,108,0.1) 0%, transparent 50%);
+    }
+
+    .hero-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--cream);
+      line-height: 1.15;
+      max-width: 700px;
+      position: relative;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: var(--latte);
+      font-size: 1rem;
+      max-width: 480px;
+      line-height: 1.75;
+      position: relative;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--espresso);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2.2rem;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+      position: relative;
+    }
+
+    .hero-btn:hover {
+      background: var(--latte);
+      transform: translateY(-1px);
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 2.5rem;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    article {
+      flex: 2;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--roast);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    article p {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 0.75rem;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .menu-card {
+      flex: 1;
+      min-width: 140px;
+      background: white;
+      border: 1px solid #e8d9cc;
+      border-radius: 4px;
+      padding: 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .menu-card:hover {
+      box-shadow: 0 6px 24px rgba(59,26,9,0.1);
+      transform: translateY(-3px);
+    }
+
+    .menu-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .menu-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--roast);
+    }
+
+    .menu-desc {
+      font-size: 0.78rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    .menu-price {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-top: 0.4rem;
+    }
+
+    .story-block {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding: 1.4rem 1.6rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    aside {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .aside-section {
+      background: white;
+      border: 1px solid #e8d9cc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .aside-section-title {
+      background: var(--roast);
+      color: var(--cream);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.6rem 1rem;
+    }
+
+    .aside-section-body {
+      padding: 1rem;
+    }
+
+    aside img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .img-caption {
+      font-size: 0.72rem;
+      color: var(--text-mid);
+      padding: 0.5rem 1rem 0.8rem;
+      font-style: italic;
+    }
+
+    .promo-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--espresso);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      margin-bottom: 0.6rem;
+    }
+
+    .promo-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--roast);
+      margin-bottom: 0.4rem;
+    }
+
+    .promo-text {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .outlet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f0e4d7;
+    }
+
+    .outlet-item:last-child { border-bottom: none; }
+
+    .outlet-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .outlet-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--roast);
+    }
+
+    .outlet-addr {
+      font-size: 0.74rem;
+      color: var(--text-mid);
+    }
+
+    footer {
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 2.5rem 2.5rem 1.5rem;
+      border-top: 3px solid var(--gold);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand {
+      flex: 2;
+      min-width: 200px;
+    }
+
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-brand-name span { color: var(--gold); }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: var(--latte);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .footer-col-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--latte);
+      text-decoration: none;
+      margin-bottom: 0.45rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid #3b1a09;
+    }
+
+    .footer-bottom p {
+      font-size: 0.72rem;
+      color: #6b4c38;
+    }
+
+    .footer-bottom p span { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="logo-sup">Sejak 2012</span>
+      <span class="logo-main">Giyanti <span class="logo-accent">Coffee Roastery</span></span>
+    </div>
+    <span class="header-tagline">Rasa Kopi yang Punya Cerita</span>
+  </header>
+
+  <nav>
+    <a href="#beranda">Beranda</a>
+    <span class="nav-divider">·</span>
+    <a href="#menu">Menu</a>
+    <a href="#tentang-kami">Tentang Kami</a>
+    <span class="nav-divider">·</span>
+    <span class="nav-divider">·</span>
+    <a href="https://www.dicoding.com/users/agung_dump_2rzs/academies" target="_blank" rel="noopener">Profil Dicoding</a>
+  </nav>
+
+  <main>
+
+    <div class="hero" id="beranda">
+      <span class="hero-label">Specialty Coffee Indonesia</span>
+      <h1>Cerita hangat<br>di Setiap <em>Tegukan</em></h1>
+      <p>Dari biji pilihan hingga racikan terbaik di tanganmu — setiap cangkir menghadirkan rasa, suasana, dan momen yang tak terlupakan.</p>
+      <a href="#menu" class="hero-btn">Jelajahi Menu Kami</a>
+    </div>
+
+    <div class="content-wrapper">
+
+      <article>
+
+        <section id="tentang-kami">
+          <p class="section-label">Tentang Kami</p>
+          <h2>Lahir dari Cinta pada Kopi Lokal</h2>
+          <div class="story-block">
+            <p>
+              Giyanti Coffee Roastery adalah ruang sederhana yang lahir dari kecintaan terhadap kopi dan proses di baliknya. Sejak berdiri pada tahun 2012, kami berkomitmen untuk menghadirkan kopi berkualitas melalui pemilihan biji terbaik dari berbagai daerah, baik lokal maupun internasional, yang kemudian kami roasting sendiri dengan penuh perhatian terhadap detail dan karakter rasa.
+            </p>
+            <p>
+              Kami percaya bahwa secangkir kopi bukan hanya tentang minuman, tetapi juga tentang pengalaman—tentang cerita, suasana, dan momen yang tercipta di dalamnya. Dengan suasana yang hangat dan bersahaja, Giyanti menjadi tempat bagi siapa saja untuk berhenti sejenak, menikmati waktu, dan menemukan kenyamanan di tengah hiruk pikuk kota.
+            </p>
+            <p>
+              Lebih dari sekadar coffee shop, kami ingin menjadi bagian dari perjalanan setiap orang yang datang—menghadirkan rasa, cerita, dan kenangan dalam setiap cangkir yang kami sajikan.
+            </p>
+          </div>
+        </section>
+
+        <section id="menu">
+          <p class="section-label">Menu Unggulan</p>
+          <h2>Pilihan Terbaik untuk Hari Terbaikmu</h2>
+          <div class="menu-grid">
+            <div class="menu-card">
+              <div class="menu-name">Latte</div>
+              <img src="assets/latte.webp" alt="Latte">
+              <div class="menu-desc">Lembut, creamy, dan seimbang — latte klasik dengan sentuhan kopi yang halus.</div>
+              <div class="menu-price">Rp 63.063</div>
+            </div>
+            <div class="menu-card">
+              <div class="menu-name">Macchiato</div>
+              <img src="assets/macchiato.webp" alt="Macchiato">
+              <div class="menu-desc">Bold, pekat, dan sedikit creamy — macchiato dengan sentuhan susu yang mempertegas karakter espresso.</div>
+              <div class="menu-price">Rp 53.559</div>
+            </div>
+            <div class="menu-card">
+              <div class="menu-name">Iced Latte</div>
+              <img src="assets/iced-latte.webp" alt="Iced Latte">
+              <div class="menu-desc">Segar, ringan, dan creamy — iced latte dengan perpaduan espresso halus dan susu dingin yang menyegarkan.</div>
+              <div class="menu-price">Rp 64.565</div>
+            </div>
+            <div class="menu-card">
+              <div class="menu-name">Iced Caramel</div>
+              <img src="assets/iced-caramel.webp" alt="Iced Caramel">
+              <div class="menu-desc">Manis, creamy, dan berkaramel — iced caramel dengan sentuhan espresso yang lembut dan menyegarkan.</div>
+              <div class="menu-price">Rp 72.072</div>
+            </div>
+            <div class="menu-card">
+              <div class="menu-name">Carrot Cake</div>
+              <img src="assets/carrot-cake.webp" alt="Carrot Cake">
+              <div class="menu-desc">Manis, lembut, dan hangat rempah — carrot cake dengan sentuhan kayu manis dan krim yang creamy.</div>
+              <div class="menu-price">Rp 64.565</div>
+            </div>
+            <div class="menu-card">
+              <div class="menu-name">Ovolmatine Croissant</div>
+              <img src="assets/croissant-ovolmatine.webp" alt="Ovolmatine Croissant">
+              <div class="menu-desc">Renyah, buttery, dan cokelat malty — ovolmatine croissant dengan isian manis yang kaya rasa.</div>
+              <div class="menu-price">Rp 61.562</div>
+            </div>
+            <div class="menu-card">
+              <div class="menu-name">Cheese Ferrero Croissant</div>
+              <img src="assets/croissant-ferrero.webp" alt="Cheese Ferrero Croissant">
+              <div class="menu-desc">Gurih, creamy, dan cokelat hazelnut — cheese Ferrero croissant dengan perpaduan manis dan legit yang memanjakan.</div>
+              <div class="menu-price">Rp 61.562</div>
+            </div>
+            <div class="menu-card">
+              <div class="menu-name">Tape Cake</div>
+              <img src="assets/tape-cake.webp" alt="Tape Cake">
+              <div class="menu-desc">Manis, legit, dan sedikit fermentasi — tape cake dengan aroma khas yang lembut dan hangat.</div>
+              <div class="menu-price">Rp 58.559</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <p class="section-label">Komitmen Kami</p>
+          <h2>Di Giyanti Coffee Roastery</h2>
+          <p>
+            Kami berkomitmen menggunakan biji kopi specialty Arabica pilihan dari berbagai daerah unggulan Indonesia seperti Java, Bali, Toraja, dan Sumatra, serta pilihan biji kopi dari mancanegara. Setiap biji kami pilih dengan cermat dan kami roasting sendiri untuk menjaga kualitas serta karakter rasa terbaik.
+          </p>
+          <p>
+            Setiap cangkir yang kami sajikan adalah hasil dari dedikasi terhadap kualitas, konsistensi, dan pengalaman kopi yang autentik.
+          </p>
+        </section>
+
+      </article>
+
+      <aside>
+
+        <div class="aside-section">
+          <div class="aside-section-title">Suasana Kedai</div>
+          <img
+            src="assets/suasana.jpg"
+            alt="Suasana kedai Giyanti Coffee Roastery dengan secangkir kopi di meja"
+          />
+          <p class="img-caption">Nikmati ketenangan dalam setiap tegukan di kedai kami.</p>
+        </div>
+
+        <div class="aside-section">
+          <div class="aside-section-title">Promo Bulan Ini</div>
+          <div class="aside-section-body">
+            <span class="promo-badge">Terbatas</span>
+            <div class="promo-title">Buy 2 Get 1 Free</div>
+            <p class="promo-text">
+              Beli dua minuman favoritmu, dapatkan satu gratis setiap hari Senin–Rabu pukul 07.00–10.00 WIB. Berlaku untuk semua menu cold brew.
+            </p>
+          </div>
+        </div>
+
+      
+        <div class="aside-section">
+          <div class="aside-section-title">Outlet</div>
+          <div class="aside-section-body">
+            <div class="outlet-item">
+              <div class="outlet-dot"></div>
+              <div>
+                <div class="outlet-name">Menteng</div>
+                <div class="outlet-addr">Jl. Surabaya No. 20, Kota Jakarta Pusat</div>
+              </div>
+            </div>
+          </div>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521671488506!2d106.82715091490075!3d-6.195098893721582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5a3a3a3a3a3%3A0x3a3a3a3a3a3a3a3a!2sJl.%20Surabaya%20No.%2020%2C%20Jakarta%20Pusat!5e0!3m2!1sid!2sid!4v1234567890123" 
+            width="100%" 
+            height="250" 
+            style="border:0; border-radius: 4px; margin-top: 1rem;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Giyanti <span>Coffee Roastery</span></div>
+        <p>Hadir untuk semua momen — dari pagi yang terburu-buru hingga sore yang panjang bersama orang tersayang.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Menu</div>
+        <a href="#">Kopi Panas</a>
+        <a href="#">Kopi Dingin</a>
+        <a href="#">Snack & Roti</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Tautan</div>
+        <a href="https://www.dicoding.com/users/agung_dump_2rzs/academies" target="_blank" rel="noopener">Profil Dicoding</a>
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat & Ketentuan</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 <span>Giyanti Coffee Roastery</span>. Seluruh hak cipta dilindungi.</p>
+      <p>Dibuat dengan <span>♥</span> untuk para pecinta kopi Indonesia.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
